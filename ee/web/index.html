@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Title</title>
+    <meta charset="utf-8">
+    <link href="styles/price.css" rel="stylesheet">
+  </head>
+
+  <body>
+  <div id="MenuMaterials" class="MenuMaterials">
+
+
+  </div>
+  Добавление нового материала в таблицу:
+  <form action="rest/materials/update" method="post">
+    <input type="text" id="name" name="name" required placeholder="name">
+    <input type="number" id="price" name="price" step="0.01" required placeholder="price">
+    <input type="number" id="thickness" name="thickness" step="1" required placeholder="thickness">
+    <br>
+    <button type="submit">Add material!</button>
+
+  </form>
+  <br>
+  Удаление материала из таблицы по ID:
+  <form action="rest/materials/delete" method="post">
+    <input type="number" id="id0" name="id" step="1" required placeholder="id">
+    <br>
+    <button type="submit">Delete material!</button>
+  </form>
+
+  <br>
+  Изменение названия материала:
+  <form action="rest/materials/updName" method="post">
+    <input type="number" id="id1" name="id" step="1" required placeholder="id">
+    <input type="text" id="name1" name="name" required placeholder="name">
+    <br>
+    <button type="submit">Rename material!</button>
+  </form>
+  <br>
+  Изменение цены материала:
+  <form action="rest/materials/updPrice" method="post">
+    <input type="number" id="id2" name="id" step="1" required placeholder="id">
+    <input type="text" id="price2" name="price" required placeholder="price">
+    <br>
+    <button type="submit">material price change!</button>
+  </form>
+  <br>
+  Изменение толщины материала:
+  <form action="rest/materials/updThickness" method="post">
+    <input type="number" id="id3" name="id" step="1" required placeholder="id">
+    <input type="text" id="thickness3" name="thickness" required placeholder="thickness">
+    <br>
+    <button type="submit">material thickness change!</button>
+  </form>
+  <br>
+  Получить все материалы:
+  <form action="rest/materials" method="get">
+    <button type="submit">Get all materials!</button>
+  </form>
+  <br>
+  Получить один материал по id:
+  <form action="rest/materials/query" method="get">
+    <input type="number" id="id" name="id" step="1">
+    <button type="submit">Get one materials!</button>
+  </form>
+  <br>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+
+  <!-- Load our React component. -->
+  <script src="scripts/index.js"></script>
+  <!--<script src="scripts/test.jsx"></script>-->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </body>
+
+
+</html>

@@ -1,0 +1,14 @@
+{
+  "facing": {
+    "id": id,
+    "name": "name",
+    "materials": [
+      {
+        "id": id,
+        "id_materials": id_materials,
+        "id_facing": id_facing,
+        "square": square
+      }
+    ]
+  }
+}
