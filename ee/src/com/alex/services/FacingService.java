@@ -302,4 +302,67 @@ public class FacingService extends ConnectionDB{
         return aoFacing;
     }
 
+    public static void deleteMaterialInFacing(int id) throws SQLException {
+        Connection dbConnection = null;
+        PreparedStatement statement = null;
+
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.prepareStatement("DELETE from materialstofacing where ID = ?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            System.out.println("Row " + id + " in \"materialsToFacing\" is delete!");
+
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+        }
+    }
+
+    public static Object addMaterialToFacing(int id_facing, int id_materials, double square) throws SQLException {
+        Connection dbConnection = null;
+        PreparedStatement statement = null;
+        int id;
+        MaterialsToFacing addMaterial = null;
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.prepareStatement("INSERT INTO  materialsToFacing (id, id_facing, id_materials, square) VALUES (DEFAULT, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, id_facing);
+            statement.setInt(2, id_materials);
+            statement.setDouble(3, square);
+            statement.executeUpdate();
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt(4);
+                }
+                else {
+                    throw new SQLException("Creating facings failed, no ID obtained.");
+                }
+            }
+            addMaterial = new MaterialsToFacing(id, id_facing, id_materials, square);
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+        }
+        return addMaterial;
+    }
 }

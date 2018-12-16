@@ -63,4 +63,24 @@ public class FacingController {
         return Response.status(200).entity(getFacing()).build();
     }
 
+    @GET
+    @Path("/deleteMaterial")
+    public Response deleteMaterial (
+            @QueryParam("id") int id
+    ) throws SQLException {
+        deleteMaterialInFacing(id);
+        return Response.status(200).entity("Row " + id + " in \"materialsToFacing\" is delete!").build();
+    }
+
+    @POST
+    @Path("/addMaterial")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteFacing(
+            @QueryParam("id_facing") int id_facing,
+            @QueryParam("id_materials") int id_materials,
+            @QueryParam("square") double square) throws SQLException {
+
+        return Response.status(200).entity(addMaterialToFacing(id_facing, id_materials, square)).build();
+    }
 }
