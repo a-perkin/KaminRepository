@@ -12,7 +12,7 @@ class MyComponent extends React.Component {
         };
     }
     componentDidMount() {
-        fetch("http://localhost:8082/rest/materials")
+        fetch("http://localhost:8082/controller/services")
             .then(res => res.json())
             .then(
                 (result) => {
