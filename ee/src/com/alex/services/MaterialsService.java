@@ -210,6 +210,7 @@ public class MaterialsService extends ConnectionDB {
                 System.out.println("id=" + id + ", name=" + name + ", price=" + price + ", thickness=" + thickness);
                 System.out.println(material);
             }
+            statement.close();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

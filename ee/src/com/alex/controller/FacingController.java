@@ -8,28 +8,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
-import static com.alex.services.FacingService.getFacingById;
-import static com.alex.services.FacingService.insertInFacing;
-import static com.alex.services.FacingService.insertInFacingObj;
+import static com.alex.services.FacingService.*;
 
 @Path("/facing")
 public class FacingController {
-
-        //Genson genson = new Genson();
-//    @POST
-//    @Path("/update")
-//    public Entity getViaQueryParam(
-//            @QueryParam("facing")
-//            @DefaultValue("{\"Entity\":{\"foo\":\"bar\",\"bar\":\"foo\"}}")
-//            final Entity facing) {
-//        return entity;
-//    }
-//
-//    @GET
-//    @Path("header")
-//    public Entity getViaHeaderParam(@HeaderParam("Entity") final Entity entity) {
-//        return entity;
-//    }
 
     @POST
     @Path("/update")
@@ -44,7 +26,7 @@ public class FacingController {
     }
 
     @GET
-    @Path("/getFacing")
+    @Path("/getFacingById")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response facingByID (
@@ -53,13 +35,32 @@ public class FacingController {
     }
 
     @POST
-    @Path("/updateObj")
+    @Path("/updateFacing")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insertInFacingJSON(Facing facing) throws SQLException {
         Object facing1 = insertInFacingObj(facing);
 
         return Response.status(200).entity(facing1).build();
+    }
+
+    @POST
+    @Path("/deleteFacing")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteFacing(@QueryParam("id") int id) throws SQLException {
+        deleteInFacing(id);
+
+        return Response.status(200).entity("Facing with id = " + id + " deleted").build();
+    }
+
+    @GET
+    @Path("/getFacing")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getAllFacing () throws SQLException {
+
+        return Response.status(200).entity(getFacing()).build();
     }
 
 }

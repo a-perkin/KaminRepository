@@ -10,14 +10,14 @@ import java.util.List;
 
 public class FacingService extends ConnectionDB{
 
-//    public static void main(String[] args) throws SQLException {
-//
-//        //insertInFacing("testqweqweqwe");
-//        //deleteInFacing(1);
-//        //Facing test = (Facing) getFacingById(29);
-//        //insertInFacingObj(test);
-//        //System.out.println(st);
-//    }
+    public static void main(String[] args) throws SQLException {
+
+        //insertInFacing("testqweqweqwe");
+        //deleteInFacing(1);
+        //Facing test = (Facing) getFacingById(29);
+        //insertInFacingObj(test);
+        //System.out.println(st);
+    }
 
     public static Object insertInFacingObj(Facing facing) throws SQLException {
         Connection dbConnection = null;
@@ -83,7 +83,6 @@ public class FacingService extends ConnectionDB{
         return facing;
     }
 
-    // one to one
     public static String insertInFacing(String name, int id_materials, double square) throws SQLException {
         Connection dbConnection = null;
         PreparedStatement statement = null;
@@ -161,7 +160,6 @@ public class FacingService extends ConnectionDB{
                     "}";
         return st;
     }
-// имеет ли смысл делить запросы
 
     public static void deleteInFacing(int id) throws SQLException {
         Connection dbConnection = null;
@@ -241,6 +239,67 @@ public class FacingService extends ConnectionDB{
         System.out.println(facing.toString());
         System.out.println(" -------- ");
         return facing;
+    }
+
+    public static List<Facing> getFacing() throws SQLException {
+        Connection dbConnection = null;
+        Statement statement = null;
+        PreparedStatement statement1 = null;
+        int id;
+        int id1;
+        int id_materials;
+        int id_facing;
+        double square;
+        String name;
+        long count = 0;
+        long count1 = 0;
+        List<Facing> aoFacing = new ArrayList<>();
+
+
+        try {
+            dbConnection = getDBConnection();
+            System.out.println("State db connection ... ");
+            statement = dbConnection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT id, name FROM facing");
+
+            while (rs.next()) {
+                id = rs.getInt("id");
+                name = rs.getString("name");
+                statement1 = dbConnection.prepareStatement("SELECT id_materials, square, id_facing, id FROM materialstofacing WHERE id_facing = ?");
+                statement1.setInt(1, id);
+                ResultSet rs1 = statement1.executeQuery();
+                List<MaterialsToFacing> aoMaterialsToFacing = new ArrayList<>();
+
+                    while (rs1.next()) {
+                        id1 = rs1.getInt("id");
+                        id_materials = rs1.getInt("id_materials");
+                        id_facing = rs1.getInt("id_facing");
+                        square = rs1.getDouble("square");
+                        aoMaterialsToFacing.add(new MaterialsToFacing(id1, id_facing, id_materials, square));
+
+                        count1++;
+                    }
+
+                aoFacing.add(new Facing(id, name, aoMaterialsToFacing));
+                count++;
+            }
+
+            statement.close();
+            statement1.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            if (statement != null) {
+                statement.close();
+            }
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+        }
+
+        return aoFacing;
     }
 
 }
