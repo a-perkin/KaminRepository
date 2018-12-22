@@ -1,5 +1,5 @@
 function test(){
-    appendOneMaterial();
+    appendOneMaterial(1);
 
 }
 
