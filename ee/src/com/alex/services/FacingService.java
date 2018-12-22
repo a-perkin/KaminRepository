@@ -57,7 +57,7 @@ public class FacingService extends ConnectionDB{
 
                 try (ResultSet generatedKeys1 = statement.getGeneratedKeys()) {
                     if (generatedKeys1.next()) {
-                        element.setId(generatedKeys1.getInt(4));
+                        element.setId(generatedKeys1.getInt(1));
                         System.out.println( "id (materialsTofFacing) = " + facing.getId());
                     }
                     else {

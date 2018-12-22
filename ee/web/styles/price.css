@@ -1,5 +1,9 @@
 #MenuMaterials{
-    width: 600px;
-    height: 600px;
+    width: 100px;
+    height: 100px;
     background-color: aquamarine;
+}
+
+#materials{
+    display: none;
 }
