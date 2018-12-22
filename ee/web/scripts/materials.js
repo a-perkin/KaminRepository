@@ -1,5 +1,5 @@
 //показать / скрыть материалы
-const HOST = '';
+const HOST = 'http://localhost:8082';
 
 let materials = document.getElementById("materials");
 
@@ -16,12 +16,13 @@ function showMaterials() {
 }
 
 let request = new XMLHttpRequest();
-request.open('GET', 'http://localhost:8082/rest/materials', true);
+request.open('GET', HOST + '/rest/materials', true);
 console.log(request.response);
 request.send();
 function getMaterials() {
         let aoMaterials = JSON.parse(request.response);
         let listMaterials = document.getElementById("listMaterials");
+
 
 
         let sMaterial;

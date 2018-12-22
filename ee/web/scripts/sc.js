@@ -1,7 +1,5 @@
-
-
-
 function test(){
-    alert('test');
+    appendOneMaterial();
+
 }
 
